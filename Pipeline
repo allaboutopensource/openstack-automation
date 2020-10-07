@@ -1,0 +1,25 @@
+pipeline {
+    agent none
+    stages{
+        stage('AD Group Creation') {
+            agent {label "windows-node"}
+            steps {
+                powershell '''
+                  New-ADGroup -Name "$env:Group_name" -GroupCategory Security -GroupScope Global -Path "OU=AD_DL,OU=DL,OU=IT,DC=corp,DC=example,DC=com" -Description "Cost-Center-$env:Cost_center"
+                '''
+            }
+        }
+        stage('Project Creation') {
+            agent {label "openstack-node"}
+            steps {
+                dir('/root/') {
+                sh '''
+                  . ./auth.sh
+                  openstack project create --domain test $Project_name --property cost_center=$Cost_center
+                  openstack role add --group $Group_name --group-domain Test --project-domain Test --project $Project_name _member_
+                '''
+                }
+            }
+        }
+    }
+}
