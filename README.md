@@ -1,11 +1,12 @@
 # openstack-automation
 How to create a project in Openstack and link it to the AD group in Openstack
 
-We need to create a Jenkins pipeline for this project. We need to have 2 slave nodes connected to the master node: 
+We need to create a Jenkins pipeline for this project. This Jenkin build is a parametrized job where the parameters are : project_name, Group_name, Cost_center.
 
-windows-node: To run the powershell commands in 1st stage
-openstack-node: To run the openstack commands in 2nd stage
+We need to have 2 slave nodes connected to the master node: 
 
-This Jenkin build is a parametrized job where the parameters are : project_name, Group_name, Cost_center.
+1) windows-node: To run the powershell commands in 1st stage
+2) openstack-node: To run the openstack commands in 2nd stage
 
-You need to source the RC file before running the openstack command on the slave node. 
+windows-node: You should have imported the AD module on to the node using the command: Import-Module Active Directory
+openstack-node: You need to source the RC file before running the openstack command on the slave node. 
