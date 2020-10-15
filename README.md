@@ -20,6 +20,9 @@ adcli is a command line tool that help us to integrate or join Linux systems suc
 You need to aware of the basic adcli commands in this case like:
 
 adcli create-group --description=<group desription> --domain=example.com --login-user=test-user --domain-ou="OU=example,DC=com" test-group
+  
 adcli delete-group test-group --domain=example.com
+
 adcli add-member --domain=example.com test-group test-user --login-user=<user>
+  
 adcli remove-member --domain=example.com test-user
