@@ -1,1 +1,34 @@
 
+pipeline {
+    agent none
+    stages{
+        stage('AD Group Creation') {
+            agent {label "Linux-node"}
+            steps {
+                sh '''
+                  adcli create-group --description=<your-choice> --domain=example.com --domain-ou="OU=example,DC=com" $Group_name --login-user=test-user --stdin-password < /root/password.txt
+                '''
+            }
+        }
+        stage('Project Creation') {
+            agent {label "Linux-node"}
+            steps {
+                dir('/root/') {
+                sh '''
+                  . ./auth.sh
+                  openstack project create --domain test-domain $Project_name --property cost_center=$Cost_center
+                  openstack role add --group $Group_name --group-domain test-domain --project-domain Test-domain --project $Project_name _member_
+                '''
+                }
+            }
+        }
+        stage('Adding User to Group') {
+            agent {label "Linux-node"}
+            steps {
+                dir('/root/') {
+                sh "adcli add-member --domain=example.com $Group_name $User_name --login-user=test-user --stdin-password < /root/password.txt"
+                }
+            }
+        }
+    }
+}
