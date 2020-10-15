@@ -1,4 +1,4 @@
-# Openstack-Automation
+# Openstack-Project Automation
 How to create a project and link it to the AD group in Openstack and how can we add user to the group so that user can have access to the Project.
 
 We need to create a Jenkins pipeline for this project. This Jenkin build is a parametrized job where the parameters are : project_name, Group_name, Cost_center.
