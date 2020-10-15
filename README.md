@@ -9,7 +9,8 @@ We need to have 2 slave nodes connected to the master node:
 2) openstack-node: To run the openstack commands in 2nd stage
 
 windows-node: You should have imported the AD module on to the node using the command: Import-Module Active Directory
-openstack-node: You need to source the RC file before running the openstack command on the slave node. 
+
+Linux-node: You need to install the openstack-cli package and source the RC file before running the openstack command on the slave node. 
 
 ====================================================================================
 
